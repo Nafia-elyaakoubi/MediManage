@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Entity
 @Data
@@ -18,7 +17,8 @@ public class Subject {
     @Column(unique = true)
     private String reference;
     private String name;
-    private String level;//switch to type to level
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
-    private List<Session> sessions;
+    @ManyToOne
+    @JoinColumn(name = "scholarLevelId")
+    private ScholarLevel scholarLevel;
+
 }

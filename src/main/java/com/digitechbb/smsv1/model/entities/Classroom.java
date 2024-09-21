@@ -16,7 +16,7 @@ public class Classroom {
     private Long id;
     private int number;
     private int capacity;
-    private Boolean availability; // Changed to lowercase for better naming convention
-    @OneToMany(mappedBy = "classroom" , cascade = CascadeType.ALL)
-    List<Session> sessions;
+    private Boolean availability; // Boolean or boolean // to delete after
+
+
 }

@@ -3,7 +3,7 @@ package com.digitechbb.smsv1.mappers;
 import com.digitechbb.smsv1.model.dtos.AbsenceDto;
 import com.digitechbb.smsv1.model.entities.Absence;
 import com.digitechbb.smsv1.model.entities.Student;
-import com.digitechbb.smsv1.model.entities.Subject;
+import com.digitechbb.smsv1.model.entities.Session;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,11 +12,8 @@ public class AbsenceMapperImpl implements AbsenceMapper {
     public Absence toEntity(AbsenceDto absenceDto) {
         Absence absence = new Absence();
         absence.setAbsenceNumber(absenceDto.absenceNumber());
-        absence.setDate(absenceDto.date());
-        absence.setHour(absenceDto.hour());
-        absence.setNumberOfHour(absenceDto.numberOfHour());
-        absence.setSubject(absenceDtoToSubject(absenceDto));
         absence.setReason(absenceDto.reason());
+        absence.setSession(absenceDtoToSession(absenceDto));
         absence.setStudent(absenceDtoToStudent(absenceDto));
 
 
@@ -27,26 +24,23 @@ public class AbsenceMapperImpl implements AbsenceMapper {
     @Override
     public AbsenceDto toDto(Absence absence) {
         Long studentId = absenceToStudentId(absence);
-        Long subjectId = absenceToSubjectId(absence);
+        Long sessionId = absenceToSessionId(absence);
 
         return new AbsenceDto(
                 absence.getAbsenceNumber(),
-                absence.getDate(),
-                absence.getHour(),
-                absence.getNumberOfHour(),
-                subjectId,
                 absence.getReason(),
+                sessionId,
                 studentId
         );
     }
 
-    private Long absenceToSubjectId(Absence absence) {
+    private Long absenceToSessionId(Absence absence) {
         if (absence == null) return null;
-        Subject subject = absence.getSubject();
-        if (subject == null) return null;
-        Long subjectId = subject.getId();
-        if (subject == null) return null;
-        return subjectId;
+        Session session = absence.getSession();
+        if (session == null) return null;
+        Long sessionId = session.getId();
+        if (session == null) return null;
+        return sessionId;
     }
 
     private Long absenceToStudentId(Absence absence) {
@@ -70,16 +64,16 @@ public class AbsenceMapperImpl implements AbsenceMapper {
         return student;
     }
 
-    protected Subject absenceDtoToSubject(AbsenceDto absenceDto) {
+    protected Session absenceDtoToSession(AbsenceDto absenceDto) {
         if (absenceDto == null) {
             return null;
         }
 
-        Subject subject = new Subject();
+        Session session = new Session();
 
-        subject.setId(absenceDto.subjectId());
+        session.setId(absenceDto.sessionId());
 
-        return subject;
+        return session;
     }
 
 

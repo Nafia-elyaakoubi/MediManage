@@ -24,4 +24,5 @@ public class Student extends Person{
     private String parentContact;
     @OneToMany(mappedBy = "student" , cascade = CascadeType.ALL)
     private List<Absence> absences;
+
 }

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 @Entity
 @Data
@@ -22,13 +21,5 @@ public class Session {
     private LocalTime endTime;
     @ManyToOne
     @JoinColumn(name = "subjectId")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Subject subject;
-    @ManyToOne
-    @JoinColumn(name = "classroomId")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Classroom classroom;
-    @OneToMany(mappedBy = "session",cascade = CascadeType.ALL)
-    private List<Assignment> assignments;
-
 }
